@@ -1,0 +1,4 @@
+name: BeaconBreaker
+version: '${project.version}'
+main: de.aurum.beaconbraker.beaconbreaker.BeaconBreaker
+api-version: '1.20'
