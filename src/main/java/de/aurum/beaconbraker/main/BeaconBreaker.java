@@ -1,7 +1,10 @@
 package de.aurum.beaconbraker.main;
 
+import de.aurum.beaconbraker.commands.SetLobbySpawnCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +16,11 @@ public final class BeaconBreaker extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
+        Data.setupData();
+        registerCommands();
+        registerEvents();
+        startupMessage();
+
     }
 
     @Override
@@ -20,13 +28,12 @@ public final class BeaconBreaker extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    private void registerCommands(PluginManager pluginManager) {
+    private void registerCommands() {
+        getCommand("setlobbyspawn").setExecutor(new SetLobbySpawnCommand());
+    }
+    private void registerEvents() {
 
     }
-    private void registerEvents(PluginManager pluginManager) {
-
-    }
-
     public void startupMessage() {
         Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA +"################################################################################\n" +
                 "#" + ChatColor.GOLD + "\t ____                             ____                 _             \t" + ChatColor.AQUA + "#\n" +

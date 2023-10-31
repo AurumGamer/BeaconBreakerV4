@@ -1,4 +1,9 @@
 name: BeaconBreaker
 version: '${project.version}'
-main: de.aurum.beaconbraker.beaconbreaker.BeaconBreaker
+main: de.aurum.beaconbraker.main.BeaconBreaker
 api-version: '1.20'
+commands:
+  setlobbyspawn:
+    description: Set the spawn for the lobby
+    usage: /setlobbyspawn
+
