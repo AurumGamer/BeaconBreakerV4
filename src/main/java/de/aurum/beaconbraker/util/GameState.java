@@ -2,6 +2,9 @@ package de.aurum.beaconbraker.util;
 
 public enum GameState {
 
-    LOBBY, STARTING, INGAME, WON;
+    LOBBY,
+    STARTING,
+    INGAME,
+    WON;
 
 }

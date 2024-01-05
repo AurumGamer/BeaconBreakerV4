@@ -1,5 +1,6 @@
 package de.aurum.beaconbraker.main;
 
+import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,48 +9,53 @@ import java.io.File;
 import java.io.IOException;
 
 public class Config {
-    private File file;
-    private FileConfiguration fileConfiguration;
 
-    public Config(String name, File path) {
-        this.file = new File(path, name);
+    private static final BeaconBreaker plugin = BeaconBreaker.getPlugin();
+    private final File file;
+    private final String name;
+    private final FileConfiguration fileConfiguration;
 
-        if(!file.exists()){
-            path.mkdir();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public Config(String name) {
+        this.name = name;
+        this.file = new File(plugin.getDataFolder(), name);
+        if (!this.file.exists()) {
+            this.file.getParentFile().mkdirs();
         }
-        fileConfiguration = new YamlConfiguration();
+
+        this.fileConfiguration = new YamlConfiguration();
+
+        save();
+
         try {
-            fileConfiguration.load(file);
+            this.fileConfiguration.load(file);
         } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
+            Utils.sendErrorMessage("Failed loading " + this.name + " configuration");
         }
     }
+
+    public Config(FileConfiguration fileConfiguration){
+        this.fileConfiguration = fileConfiguration;
+        this.file = null;
+        this.name = fileConfiguration.getName();
+    }
+
     public void save(){
         try {
             fileConfiguration.save(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            Utils.sendErrorMessage("Failed saving " + name + " configuration");
         }
     }
     public void reload(){
         try {
             fileConfiguration.load(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidConfigurationException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | InvalidConfigurationException e) {
+            Utils.sendErrorMessage("Failed loading " + name + " configuration");
         }
     }
     //<-----------Getters and Setters----------->
-    public File getFile() {
-        return file;
-    }
-    public FileConfiguration getFileConfiguration() {
+
+    public FileConfiguration getConfiguration() {
         return fileConfiguration;
     }
 }

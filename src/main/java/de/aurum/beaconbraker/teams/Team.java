@@ -11,10 +11,10 @@ public class Team {
 
     private final String name;
     private final ChatColor color;
-    private String prefix;
+    private final String prefix;
     private Location spawnPoint;
     private int balance;
-    private Set<Player> teammembers = new HashSet<>();
+    private final Set<Player> teamMembers = new HashSet<>();
 
     public Team(String name, ChatColor color, Location spawnPoint) {
         this.name = name;
@@ -46,27 +46,27 @@ public class Team {
         return balance;
     }
     public void addBalance(int amount){
-        balance += amount;
+        this.balance += amount;
     }
     public void removeBalance(int amount){
-        if(balance >= amount){
-            balance = 0;
+        if(this.balance >= amount){
+            this.balance = 0;
             return;
-        }balance -= amount;
+        }this.balance -= amount;
     }
     public void setBalance(int amount){
-        balance = amount;
+        this.balance = amount;
     }
 
-    public void addTeammember(Player p){
-        teammembers.add(p);
+    public boolean addTeammember(Player p){
+        return teamMembers.add(p);
     }
 
-    public void removeTeammember(Player p){
-        teammembers.remove(p);
+    public boolean removeTeammember(Player p){
+        return teamMembers.remove(p);
     }
 
     public Set<Player> getTeammembers() {
-        return teammembers;
+        return teamMembers;
     }
 }

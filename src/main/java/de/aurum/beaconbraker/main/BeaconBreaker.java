@@ -1,12 +1,15 @@
 package de.aurum.beaconbraker.main;
 
 import de.aurum.beaconbraker.commands.SetLobbySpawnCommand;
+import de.aurum.beaconbraker.listener.PlayerJoinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.awt.*;
 
 public final class BeaconBreaker extends JavaPlugin {
 
@@ -32,7 +35,8 @@ public final class BeaconBreaker extends JavaPlugin {
         getCommand("setlobbyspawn").setExecutor(new SetLobbySpawnCommand());
     }
     private void registerEvents() {
-
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new PlayerJoinListener(), this);
     }
     public void startupMessage() {
         Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA +"################################################################################\n" +
@@ -50,7 +54,5 @@ public final class BeaconBreaker extends JavaPlugin {
     public static BeaconBreaker getPlugin(){
         return plugin;
     }
-    public static void setPlugin(BeaconBreaker plugin) {
-        BeaconBreaker.plugin = plugin;
-    }
+
 }

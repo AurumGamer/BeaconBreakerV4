@@ -1,6 +1,7 @@
 package de.aurum.beaconbraker.commands;
 
 import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,23 +11,22 @@ import org.bukkit.entity.Player;
 
 public class SetLobbySpawnCommand implements CommandExecutor {
 
-    static FileConfiguration cfg = Data.getLocationsConfig().getFileConfiguration();
+    private static FileConfiguration cfg = Data.getLocationsConfig();
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
         if(sender instanceof Player){
-            Player p = (Player) sender;
-            if(cmd.getName().equalsIgnoreCase("setlobbyspawn")) {
-                if(args.length == 0) {
-                    if(p.hasPermission("game.setup")) {
-                        Location location = Data.roundLocation(p.getLocation());
-                        cfg.set("Lobby.Spawn", location);
-                        Data.getLocationsConfig().save();
-                        p.sendMessage(Data.getPrefix() + "§cDer Spawn wurde erfolgreich gesetzt!");
-                    } else p.sendMessage(Data.getNoPerm());
-                } else p.sendMessage(Data.getUsage("setlobbyspawn") + " /SetSpawn");
-            } else p.sendMessage(Data.getUsage(label));
+            Player player = (Player) sender;
+            if(Utils.userHasPermission(cmd, sender, "setLobbySpawn")){
+                if(args.length == 0){
+                    Location location = Data.roundLocation(player.getLocation());
+                    cfg.set("locations.lobby.spawn", location);
+                    Data.saveLocationsConfig();
+                    player.sendMessage(Data.getPrefix() + "§cDer Spawn wurde erfolgreich gesetzt!");
+                }else player.sendMessage(Data.getUsage() + cmd.getUsage());
+            }else player.sendMessage(Data.getNoPerm());
         }else sender.sendMessage(Data.getWrongSender());
         return false;
     }

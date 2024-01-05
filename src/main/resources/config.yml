@@ -11,20 +11,20 @@
 #       |__/
 
 
-Chat:
-  Prefix: '&6[&bBeaconBreaker&6] §b'
-  JoinMessage: '%Prefix% &6%Player% &ehat den server betreten'
-  NoPerm: '%Prefix% §cKeine Permission!'
-  WrongSender: '%Prefix% §cDieser Command darf nur von Spielern ausgeführt werden'
-  Usage: '%Prefix% §c%Usage% '
+chat:
+  prefix: '&6[&bBeaconBreaker&6] §b'
+  joinMessage: '%Prefix% &6%Player% &ehat den server betreten'
+  noPerm: '%Prefix% §cKeine Permission!'
+  wrongSender: '%Prefix% §cDieser Command darf nur von Spielern ausgeführt werden'
+  usage: '%Prefix% §c%Usage% '
 
-Game:
-  Teams:
-    Red:
-      Name: 'Rot'
-      Color: 'RED' #Colors need to be written out in caps. Possible values: AQUA, BLACK, BLUE, BOLD, DARK_AQUA, DARK_BLUE, DARK_GRAY, DARK_GREEN, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, ITALIC, LIGHT_PURPLE, MAGIC, RED, RESET, STRIKETHROUGH, UNDERLINE, WHITE, YELLOW
-      Spawnpoint:
-    Blue:
-      Name: 'Blau'
-      Color: 'BLUE'
-      Spawnpoint:
+game:
+  teams:
+    red:
+      name: 'Rot'
+      color: 'RED' #Colors need to be written out in caps. Possible values: AQUA, BLACK, BLUE, BOLD, DARK_AQUA, DARK_BLUE, DARK_GRAY, DARK_GREEN, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, ITALIC, LIGHT_PURPLE, MAGIC, RED, RESET, STRIKETHROUGH, UNDERLINE, WHITE, YELLOW
+      spawnpoint:
+    blue:
+      name: 'Blau'
+      color: 'BLUE'
+      spawnpoint:

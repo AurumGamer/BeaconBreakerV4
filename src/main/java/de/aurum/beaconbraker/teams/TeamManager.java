@@ -1,28 +1,46 @@
 package de.aurum.beaconbraker.teams;
 
 import de.aurum.beaconbraker.main.Data;
-import org.bukkit.Bukkit;
+import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class TeamManager {
 
-    private static final FileConfiguration config = Data.getLocationsConfig().getFileConfiguration();
-    Set<Team> teams = new HashSet<>();
+    private static final FileConfiguration defaultConfig = Data.getDefaultConfig();
+    private static final FileConfiguration locationsConfig = Data.getLocationsConfig();
+    private static final Map<String, Team> teams = new HashMap<>();
 
     public void setupTeams() {
-        for(String key : config.getConfigurationSection("Game.Teams").getKeys(false)){
-            String name = config.getString("Game.Teams." + key + ".Name");
-            config.set("Game.Teams." + key + ".Color", Color.RED);
-            ChatColor color = ChatColor.valueOf(config.getString("Game.Teams." + key + ".Color"));
-            Location spawnPoint = config.getLocation("Game.Teams." + key + ".Spawnpoint");
-            teams.add(new Team(name, color, spawnPoint));
+
+        try {
+            for(String key : defaultConfig.getConfigurationSection("game.teams").getKeys(false)){
+                String name = defaultConfig.getString("game.teams." + key + ".name");
+                ChatColor color = ChatColor.valueOf(defaultConfig.getString("game.teams." + key + ".color"));
+                Location spawnPoint = locationsConfig.getLocation("locations.teams." + key + ".spawnpoint");
+                if(name == null || color == null || spawnPoint == null) throw new NullPointerException();
+                teams.put(key ,new Team(name, color, spawnPoint));
+            }
+        }catch (NullPointerException e){
+            Utils.sendErrorMessage("Failed loading Team configuration");
         }
     }
 
+    //<-----------Getters and Setters----------->
+
+    public Team getTeam(String key){
+        return teams.get(key);
+    }
+
+    public Set<String> getTeamKeys(){
+        return teams.keySet();
+    }
+
 }
+
+
