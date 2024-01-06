@@ -1,7 +1,11 @@
 package de.aurum.beaconbraker.main;
 
+import de.aurum.beaconbraker.commands.SetChestCommand;
 import de.aurum.beaconbraker.commands.SetLobbySpawnCommand;
+import de.aurum.beaconbraker.commands.SetTeamPositionsCommand;
+import de.aurum.beaconbraker.listener.FoodLevelChangeListener;
 import de.aurum.beaconbraker.listener.PlayerJoinListener;
+import de.aurum.beaconbraker.util.GameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -20,6 +24,7 @@ public final class BeaconBreaker extends JavaPlugin {
         // Plugin startup logic
         plugin = this;
         Data.setupData();
+        GameManager.setUp();
         registerCommands();
         registerEvents();
         startupMessage();
@@ -33,10 +38,14 @@ public final class BeaconBreaker extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("setlobbyspawn").setExecutor(new SetLobbySpawnCommand());
+        getCommand("setteamposition").setExecutor(new SetTeamPositionsCommand());
+        getCommand("setteamposition").setTabCompleter(new SetTeamPositionsCommand());
+        getCommand("setchest").setExecutor(new SetChestCommand());
     }
     private void registerEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new FoodLevelChangeListener(), this);
     }
     public void startupMessage() {
         Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA +"################################################################################\n" +

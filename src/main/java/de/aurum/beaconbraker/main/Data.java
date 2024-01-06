@@ -8,9 +8,8 @@ import org.jetbrains.annotations.Nullable;
 public class Data {
     
     private static final BeaconBreaker plugin = BeaconBreaker.getPlugin();
-
-    private static Config locationsConfig;
     private static Config config;
+    private static Config locationsConfig;
     private static String prefix;
     private static String noPerm;
     private static String usage;
@@ -20,12 +19,12 @@ public class Data {
     public static void setupData() {
         plugin.saveDefaultConfig();
         config = new Config(plugin.getConfig());
-        locationsConfig = new Config("locations.yml");
         prefix = formatString("chat.prefix");
         joinMessage = formatString("chat.joinMessage");
         noPerm = formatString("chat.noPerm");
         wrongSender = formatString("chat.wrongSender");
         usage = formatString("chat.usage");
+        locationsConfig = new Config("locations.yml");
     }
     
     

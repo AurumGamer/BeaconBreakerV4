@@ -2,6 +2,7 @@ package de.aurum.beaconbraker.listener;
 
 import de.aurum.beaconbraker.main.Data;
 import de.aurum.beaconbraker.util.GameManager;
+import de.aurum.beaconbraker.util.TeleportManager;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -19,6 +20,18 @@ public class PlayerJoinListener implements Listener {
         String JoinMessage = Data.getJoinMessage().replace("%Player%", p.getName());
         e.setJoinMessage(JoinMessage);
         e.getPlayer().setGameMode(GameMode.ADVENTURE);
+        switch (GameManager.getGameState()) {
+            case LOBBY:
+                e.getPlayer().getInventory().clear();
+                e.getPlayer().getInventory().setArmorContents(null);
+                e.getPlayer().setExp(0);
+                e.getPlayer().setLevel(0);
+                e.getPlayer().setFoodLevel(20);
+                e.getPlayer().setHealth(20);
+                e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+                e.getPlayer().setAllowFlight(false);
+                TeleportManager.teleportToLobbySpawn(e.getPlayer(), true);
+        }
 
         
 //        switch (GameManager.getGameState()){

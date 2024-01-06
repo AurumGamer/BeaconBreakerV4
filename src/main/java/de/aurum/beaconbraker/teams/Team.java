@@ -13,14 +13,18 @@ public class Team {
     private final ChatColor color;
     private final String prefix;
     private Location spawnPoint;
+    private Location beaconLocation;
+    private boolean baconAlive;
     private int balance;
     private final Set<Player> teamMembers = new HashSet<>();
 
-    public Team(String name, ChatColor color, Location spawnPoint) {
+    public Team(String name, ChatColor color, Location spawnPoint, Location beaconLocation) {
         this.name = name;
         this.color = color;
         this.spawnPoint = spawnPoint;
+        this.beaconLocation = beaconLocation;
         this.balance = 0;
+        this.baconAlive = true;
         this.prefix ="[" + color + name+ "]";
     }
 
@@ -68,5 +72,13 @@ public class Team {
 
     public Set<Player> getTeammembers() {
         return teamMembers;
+    }
+
+    public Location getBeaconLocation() {
+        return beaconLocation;
+    }
+
+    public boolean isBaconAlive() {
+        return baconAlive;
     }
 }

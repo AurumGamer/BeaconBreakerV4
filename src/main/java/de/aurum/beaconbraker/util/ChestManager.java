@@ -4,7 +4,10 @@ import de.aurum.beaconbraker.main.Data;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Rotatable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
 
@@ -30,8 +33,6 @@ public class ChestManager {
 
                         int randomPercentage = rand.nextInt(100);
                         int randomAmount;
-                        int randomSlot;
-                        int randomMaterial;
 
                         if (randomPercentage <= 40) {
                             randomAmount = 1;
@@ -44,8 +45,8 @@ public class ChestManager {
                         }
 
                         for (int i = 0; i < randomAmount; i++) {
-                            randomSlot = rand.nextInt(26);
-                            randomMaterial = rand.nextInt(4);
+                            int randomSlot = rand.nextInt(26);
+                            int randomMaterial = rand.nextInt(4);
                             inv.setItem(randomSlot, new ItemBuilder(materials[randomMaterial], 1).build());
                         }
                     }

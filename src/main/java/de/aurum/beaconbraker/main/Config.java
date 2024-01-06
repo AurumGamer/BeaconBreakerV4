@@ -1,6 +1,7 @@
 package de.aurum.beaconbraker.main;
 
 import de.aurum.beaconbraker.util.Utils;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,12 +25,11 @@ public class Config {
 
         this.fileConfiguration = new YamlConfiguration();
 
-        save();
 
         try {
             this.fileConfiguration.load(file);
         } catch (IOException | InvalidConfigurationException e) {
-            Utils.sendErrorMessage("Failed loading " + this.name + " configuration");
+            Utils.sendErrorMessage("Failed loading " + this.name + " configuration", this.getClass().getName() + "\n" + e.toString() + ChatColor.BOLD + "\n Ignore on first startup");
         }
     }
 
@@ -43,14 +43,14 @@ public class Config {
         try {
             fileConfiguration.save(file);
         } catch (IOException e) {
-            Utils.sendErrorMessage("Failed saving " + name + " configuration");
+            Utils.sendErrorMessage("Failed saving " + name + " configuration", this.getClass().getName());
         }
     }
     public void reload(){
         try {
             fileConfiguration.load(file);
         } catch (IOException | InvalidConfigurationException e) {
-            Utils.sendErrorMessage("Failed loading " + name + " configuration");
+            Utils.sendErrorMessage("Failed loading " + name + " configuration", this.getClass().getName());
         }
     }
     //<-----------Getters and Setters----------->

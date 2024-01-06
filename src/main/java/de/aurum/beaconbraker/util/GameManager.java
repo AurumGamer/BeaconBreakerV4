@@ -1,7 +1,10 @@
 package de.aurum.beaconbraker.util;
 
+import de.aurum.beaconbraker.teams.Team;
+import de.aurum.beaconbraker.teams.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.Material;
 import org.bukkit.World;
 
 public class GameManager {
@@ -21,6 +24,8 @@ public class GameManager {
         world.setGameRule(GameRule.KEEP_INVENTORY, true);
         ChestManager.placeChests();
         ChestManager.fillChests();
+        TeamManager.setupTeams();
+        placeTeamBeacons();
     }
 
     public void setGameState(GameState gameState) {
@@ -42,6 +47,14 @@ public class GameManager {
 
     public static GameState getGameState(){
         return gameState;
+    }
+
+    private static void placeTeamBeacons(){
+        for(Team team : TeamManager.getTeams()){
+            if(team.getBeaconLocation() != null){
+                team.getBeaconLocation().getBlock().setType(Material.BEACON);
+            }else Utils.sendErrorMessage("Failed loading team '" + team.getName() + "' beacon location", "Location equals null");
+        }
     }
 
 }

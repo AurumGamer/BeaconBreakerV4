@@ -6,4 +6,10 @@ commands:
   setlobbyspawn:
     description: Set the spawn for the lobby
     usage: /setlobbyspawn
+  setteamposition:
+    description: Set any position of any team
+    usage: /setteamposition [Team] [Position]
+  setchest:
+    description: Set Spawn of Loot Chests
+    usage: /setchest [ChestNumber]
 

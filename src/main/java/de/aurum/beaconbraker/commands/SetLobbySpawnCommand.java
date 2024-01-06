@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class SetLobbySpawnCommand implements CommandExecutor {
 
-    private static FileConfiguration cfg = Data.getLocationsConfig();
+    private static final FileConfiguration cfg = Data.getLocationsConfig();
 
 
     @Override
@@ -28,7 +28,7 @@ public class SetLobbySpawnCommand implements CommandExecutor {
                 }else player.sendMessage(Data.getUsage() + cmd.getUsage());
             }else player.sendMessage(Data.getNoPerm());
         }else sender.sendMessage(Data.getWrongSender());
-        return false;
+        return true;
     }
 
 }
