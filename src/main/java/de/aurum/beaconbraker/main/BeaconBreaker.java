@@ -28,7 +28,6 @@ public final class BeaconBreaker extends JavaPlugin {
         registerCommands();
         registerEvents();
         startupMessage();
-
     }
 
     @Override
@@ -48,6 +47,7 @@ public final class BeaconBreaker extends JavaPlugin {
         pluginManager.registerEvents(new FoodLevelChangeListener(), this);
     }
     public void startupMessage() {
+
         Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA +"################################################################################\n" +
                 "#" + ChatColor.GOLD + "\t ____                             ____                 _             \t" + ChatColor.AQUA + "#\n" +
                 ChatColor.AQUA + "#" + ChatColor.GOLD + "\t|  _ \\                           |  _ \\               | |            \t" + ChatColor.AQUA + "#\n" +

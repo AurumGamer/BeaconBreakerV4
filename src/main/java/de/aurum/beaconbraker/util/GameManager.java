@@ -26,6 +26,7 @@ public class GameManager {
         ChestManager.fillChests();
         TeamManager.setupTeams();
         placeTeamBeacons();
+        EntityManager.spawnShops();
     }
 
     public void setGameState(GameState gameState) {

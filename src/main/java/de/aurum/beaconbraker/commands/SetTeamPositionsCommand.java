@@ -3,7 +3,6 @@ package de.aurum.beaconbraker.commands;
 import de.aurum.beaconbraker.main.Data;
 import de.aurum.beaconbraker.teams.Team;
 import de.aurum.beaconbraker.teams.TeamManager;
-import de.aurum.beaconbraker.util.TeleportManager;
 import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -13,11 +12,18 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SetTeamPositionsCommand implements CommandExecutor, TabCompleter {
+
+    private static final Set<String> validCommands = new HashSet<>();
+
+    static {
+        validCommands.add("spawn");
+        validCommands.add("shop");
+        validCommands.add("upgrades");
+        validCommands.add("beacon");
+    }
 
     FileConfiguration locationsConfig = Data.getLocationsConfig();
     FileConfiguration defaultConfig = Data.getDefaultConfig();
@@ -28,9 +34,10 @@ public class SetTeamPositionsCommand implements CommandExecutor, TabCompleter {
             if (Utils.userHasPermission(cmd, sender, "setLobbySpawn")) {
                 if (args.length == 2) {
                     Team playerTeam = TeamManager.getTeam(args[0]);
-                    if(playerTeam != null && (args[1].equals("spawn") || args[1].equals("shop") || args[1].equals("upgrades") || args[1].equals("beacon"))){
+                    String position = args[1].toLowerCase();
+                    if(playerTeam != null && (validCommands.contains(position.toLowerCase()))){
                         Location playerLocation = Data.roundLocation(player.getLocation());
-                        locationsConfig.set("locations.teams." + args[0] + "." + args[1], playerLocation);
+                        locationsConfig.set("locations.teams." + args[0].toLowerCase() + "." + position.toLowerCase(), playerLocation);
                         Data.saveLocationsConfig();
                     }else player.sendMessage(Data.getPrefix() +  cmd.getUsage());
                 }else player.sendMessage(Data.getPrefix() +  cmd.getUsage());

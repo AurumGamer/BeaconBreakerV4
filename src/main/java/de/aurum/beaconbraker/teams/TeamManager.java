@@ -39,7 +39,7 @@ public class TeamManager {
     //<-----------Getters and Setters----------->
 
     public static Team getTeam(String key){
-        return teams.get(key);
+        return teams.get(key.toLowerCase());
     }
 
     public static Set<String> getTeamKeys(){
