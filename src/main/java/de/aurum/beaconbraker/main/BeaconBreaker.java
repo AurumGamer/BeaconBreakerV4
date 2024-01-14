@@ -3,6 +3,7 @@ package de.aurum.beaconbraker.main;
 import de.aurum.beaconbraker.commands.SetChestCommand;
 import de.aurum.beaconbraker.commands.SetLobbySpawnCommand;
 import de.aurum.beaconbraker.commands.SetTeamPositionsCommand;
+import de.aurum.beaconbraker.listener.EntityInteractListener;
 import de.aurum.beaconbraker.listener.FoodLevelChangeListener;
 import de.aurum.beaconbraker.listener.PlayerJoinListener;
 import de.aurum.beaconbraker.util.GameManager;
@@ -45,6 +46,7 @@ public final class BeaconBreaker extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new FoodLevelChangeListener(), this);
+        pluginManager.registerEvents(new EntityInteractListener(), this);
     }
     public void startupMessage() {
 

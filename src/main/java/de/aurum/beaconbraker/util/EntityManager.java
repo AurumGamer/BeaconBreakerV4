@@ -2,6 +2,8 @@ package de.aurum.beaconbraker.util;
 
 import de.aurum.beaconbraker.main.BeaconBreaker;
 import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.teams.Team;
+import de.aurum.beaconbraker.teams.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -13,10 +15,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class EntityManager {
+
+    private static Map<String, Villager> villagers = new HashMap<String,Villager>();
 
     private static final FileConfiguration locationsConfig = Data.getLocationsConfig();
 
@@ -27,38 +32,36 @@ public class EntityManager {
 
 
     public static void spawnShops(){
-        if (locationsConfig.getConfigurationSection("locations.teams") != null) {
-            for (String teamKey : locationsConfig.getConfigurationSection("locations.teams").getKeys(false)) {
-                if (locationsConfig.getConfigurationSection("locations.teams." + teamKey) != null) {
-                    Set<String> sortetLocationKeys = locationsConfig.getConfigurationSection("locations.teams."+ teamKey).getKeys(false).stream()
-                            .filter(value -> value.equals("shop") || value.equals("upgrades"))
-                            .collect(Collectors.toSet());
-                    for (String locationKey : sortetLocationKeys) {
-                        Location spawnLocation = locationsConfig.getLocation("locations.teams."+ teamKey + "." + locationKey);
-                        if(spawnLocation != null){
-                            String entityName = ChatColor.BLACK + locationKey.substring(0, 1).toUpperCase() + locationKey.substring(1);
-                            Optional<Villager> optionalVillager;
-                            Villager shopVillager;
-                            if (spawnLocation.getWorld().getEntitiesByClass(Villager.class).stream().anyMatch(entity -> entity.getMetadata("id").get(0).asString().equals(teamKey+locationKey))){
-                                optionalVillager = spawnLocation.getWorld().getEntitiesByClass(Villager.class).stream()
-                                        .filter(entity -> entity.getMetadata("id").get(0).asString().equals(teamKey+locationKey)).findFirst();
-                                shopVillager = optionalVillager.map(villager -> (Villager) villager).orElseGet(() -> (Villager) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.VILLAGER));
-                            }else {
-                                shopVillager = (Villager) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.VILLAGER);
-                            }
-                            shopVillager.setCustomName(entityName);
-                            shopVillager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
-                            shopVillager.setCanPickupItems(false);
-                            shopVillager.setCollidable(false);
-                            shopVillager.setCustomNameVisible(true);
-                            shopVillager.setProfession(Villager.Profession.ARMORER);
-                            shopVillager.setVillagerLevel(2);
-                            shopVillager.setMetadata("id", new FixedMetadataValue(BeaconBreaker.getPlugin(), teamKey+locationKey));
-                        }
-                    }
-                }
-            }
+        for (Team team : TeamManager.getTeams()) {
+            villagers.put(team.getName()+"shop", createVillager(team.getShopLocation(), team, "shop"));
+            villagers.put(team.getName()+"upgrades", createVillager(team.getUpgradesLocation(), team, "upgrades"));
         }
     }
 
+    private static Villager createVillager(@Nonnull Location location, @Nonnull Team team, @Nonnull String type){
+        String teamKey = team.getName();
+        String entityName = team.getColor() + type.substring(0, 1).toUpperCase() + type.substring(1);
+        Optional<Villager> optionalVillager;
+        Villager shopVillager = null;
+        if (!location.getWorld().getEntitiesByClass(Villager.class).isEmpty()){
+            for (Villager villager : location.getWorld().getEntitiesByClass(Villager.class)){
+                if((!villager.getMetadata("id").isEmpty()) &&villager.getMetadata("id").get(0).asString().equals(teamKey+type)){
+                    shopVillager = villager;
+                }
+            }
+        }
+        if(shopVillager == null) shopVillager = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
+
+        shopVillager.setCustomName(entityName);
+        shopVillager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
+        shopVillager.setCanPickupItems(false);
+        shopVillager.setCollidable(false);
+        shopVillager.setCustomNameVisible(true);
+        shopVillager.setProfession(Villager.Profession.ARMORER);
+        shopVillager.setVillagerLevel(2);
+        shopVillager.setMetadata("id", new FixedMetadataValue(BeaconBreaker.getPlugin(), teamKey+type));
+        shopVillager.teleport(location);
+
+        return shopVillager;
+    }
 }

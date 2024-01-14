@@ -27,8 +27,9 @@ public class TeamManager {
                 ChatColor color = ChatColor.valueOf(defaultConfig.getString("game.teams." + key + ".color"));
                 Location spawnPoint = locationsConfig.getLocation("locations.teams." + key + ".spawnpoint");
                 Location beaconLocation = locationsConfig.getLocation("locations.teams." + key + ".beacon");
-                if(name == null || color == null) throw new NullPointerException();
-                teams.put(key ,new Team(name, color, spawnPoint, beaconLocation));
+                Location shopLocation = locationsConfig.getLocation("locations.teams." + key + ".shop");
+                Location upgradesLocation = locationsConfig.getLocation("locations.teams." + key + ".upgrades");
+                teams.put(key ,new Team(name, color, spawnPoint, beaconLocation, shopLocation, upgradesLocation));
             }
         }catch (NullPointerException e){
             Utils.sendErrorMessage("Failed loading Team configuration", TeamManager.class.getName() + "\n" + e.toString());
