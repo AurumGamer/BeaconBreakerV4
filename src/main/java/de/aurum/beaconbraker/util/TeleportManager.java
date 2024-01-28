@@ -1,7 +1,7 @@
 package de.aurum.beaconbraker.util;
 
 import de.aurum.beaconbraker.main.Data;
-import de.aurum.beaconbraker.teams.TeamManager;
+import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;

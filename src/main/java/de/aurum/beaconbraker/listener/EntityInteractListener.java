@@ -1,8 +1,7 @@
 package de.aurum.beaconbraker.listener;
 
-import com.google.common.util.concurrent.Service;
-import de.aurum.beaconbraker.teams.Team;
-import de.aurum.beaconbraker.teams.TeamManager;
+import de.aurum.beaconbraker.util.teams.Team;
+import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;

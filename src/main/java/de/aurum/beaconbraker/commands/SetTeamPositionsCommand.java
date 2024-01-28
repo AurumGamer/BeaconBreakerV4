@@ -1,8 +1,8 @@
 package de.aurum.beaconbraker.commands;
 
 import de.aurum.beaconbraker.main.Data;
-import de.aurum.beaconbraker.teams.Team;
-import de.aurum.beaconbraker.teams.TeamManager;
+import de.aurum.beaconbraker.util.teams.Team;
+import de.aurum.beaconbraker.util.teams.TeamManager;
 import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

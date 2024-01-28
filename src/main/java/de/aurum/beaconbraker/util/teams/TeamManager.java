@@ -1,4 +1,4 @@
-package de.aurum.beaconbraker.teams;
+package de.aurum.beaconbraker.util.teams;
 
 import de.aurum.beaconbraker.main.Data;
 import de.aurum.beaconbraker.util.Utils;

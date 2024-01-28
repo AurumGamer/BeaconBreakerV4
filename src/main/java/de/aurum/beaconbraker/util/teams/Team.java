@@ -1,4 +1,4 @@
-package de.aurum.beaconbraker.teams;
+package de.aurum.beaconbraker.util.teams;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

@@ -1,7 +1,7 @@
 package de.aurum.beaconbraker.util;
 
-import de.aurum.beaconbraker.teams.Team;
-import de.aurum.beaconbraker.teams.TeamManager;
+import de.aurum.beaconbraker.util.teams.Team;
+import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;

@@ -2,22 +2,17 @@ package de.aurum.beaconbraker.util;
 
 import de.aurum.beaconbraker.main.BeaconBreaker;
 import de.aurum.beaconbraker.main.Data;
-import de.aurum.beaconbraker.teams.Team;
-import de.aurum.beaconbraker.teams.TeamManager;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import de.aurum.beaconbraker.util.teams.Team;
+import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class EntityManager {
 
