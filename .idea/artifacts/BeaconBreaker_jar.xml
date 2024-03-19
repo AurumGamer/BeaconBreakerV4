@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="BeaconBreaker:jar">
-    <output-path>$PROJECT_DIR$/../Beacon Breaker Server/plugins</output-path>
-    <root id="archive" name="BeaconBreaker.jar">
-      <element id="module-output" name="BeaconBreaker" />
-    </root>
-  </artifact>
-</component>
