@@ -34,9 +34,21 @@ public class Utils {
         Text causeText = new Text(ChatColor.RED + "Cause: " + cause);
         errorText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, causeText));
 
-        Bukkit.getConsoleSender().sendMessage( ChatColor.RED + errorText.getText() + "\n" + cause);
+        Bukkit.getConsoleSender().sendMessage( ChatColor.RED + errorText.getText() + "\nCause: " + cause);
         for(Player player : Bukkit.getOnlinePlayers()){
             if(player.isOp()) player.spigot().sendMessage(errorText);
+        }
+    }
+
+    public static void sendUsage(Player player, Command cmd){
+        String message = Data.getUsage().replaceAll("(?i)%Usage%", cmd.getUsage());
+        player.sendMessage(message);
+    }
+
+    public static void sendOperatorMessage(String message){
+        Bukkit.getConsoleSender().sendMessage(message);
+        for(Player player : Bukkit.getOnlinePlayers()){
+            if(player.isOp()) player.sendMessage(message);
         }
     }
 

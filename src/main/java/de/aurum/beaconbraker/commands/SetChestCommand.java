@@ -27,7 +27,7 @@ public class SetChestCommand implements CommandExecutor {
                     Data.saveLocationsConfig();
                     ChestManager.placeChests();
                     player.sendMessage(Data.getPrefix() + "Chest " + args[0] + " wurde platziert");
-                }else player.sendMessage(Data.getUsage() + cmd.getUsage());
+                }else Utils.sendUsage(player, cmd);
             }else player.sendMessage(Data.getNoPerm());
         }else sender.sendMessage(Data.getWrongSender());
         return true;

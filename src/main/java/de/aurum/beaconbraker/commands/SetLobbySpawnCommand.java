@@ -25,7 +25,7 @@ public class SetLobbySpawnCommand implements CommandExecutor {
                     cfg.set("locations.lobby.spawn", location);
                     Data.saveLocationsConfig();
                     player.sendMessage(Data.getPrefix() + "§cDer Spawn wurde erfolgreich gesetzt!");
-                }else player.sendMessage(Data.getUsage() + cmd.getUsage());
+                }else Utils.sendUsage(player, cmd);
             }else player.sendMessage(Data.getNoPerm());
         }else sender.sendMessage(Data.getWrongSender());
         return true;

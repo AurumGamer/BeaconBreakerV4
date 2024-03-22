@@ -1,5 +1,6 @@
 package de.aurum.beaconbraker.main;
 
+import de.aurum.beaconbraker.commands.ReloadCommand;
 import de.aurum.beaconbraker.commands.SetChestCommand;
 import de.aurum.beaconbraker.commands.SetLobbySpawnCommand;
 import de.aurum.beaconbraker.commands.SetTeamPositionsCommand;
@@ -19,6 +20,7 @@ import java.awt.*;
 public final class BeaconBreaker extends JavaPlugin {
 
     private static BeaconBreaker plugin;
+    public static boolean debugMode = true;
 
     @Override
     public void onEnable() {
@@ -41,6 +43,7 @@ public final class BeaconBreaker extends JavaPlugin {
         getCommand("setteamposition").setExecutor(new SetTeamPositionsCommand());
         getCommand("setteamposition").setTabCompleter(new SetTeamPositionsCommand());
         getCommand("setchest").setExecutor(new SetChestCommand());
+        getCommand("bbreload").setExecutor(new ReloadCommand());
     }
     private void registerEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();

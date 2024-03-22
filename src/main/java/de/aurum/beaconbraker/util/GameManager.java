@@ -6,8 +6,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
+
+import java.util.HashMap;
+import java.util.Set;
 
 public class GameManager {
+
+    private static HashMap<Player, Integer> playerBalances = new HashMap<Player, Integer>();
 
     private static GameState gameState;
     private static final World world = Bukkit.getServer().getWorlds().get(0);
@@ -46,17 +52,40 @@ public class GameManager {
         }
     }
 
-    public static GameState getGameState(){
-        return gameState;
-    }
-
     private static void placeTeamBeacons(){
         for(Team team : TeamManager.getTeams()){
             if(team.getBeaconLocation() != null){
                 team.getBeaconLocation().getBlock().setType(Material.BEACON);
-            }else Utils.sendErrorMessage("Failed loading team '" + team.getName() + "' beacon location", "Location equals null");
+            }else Utils.sendErrorMessage("Failed loading team '" + team.getName() + "' beacon location", GameManager.class.getName() + " Location equals null");
         }
     }
 
+    //<-----------Getters and Setters----------->
+
+    public static GameState getGameState(){
+        return gameState;
+    }
+
+    public static int getPlayerBalance(Player player){
+        return playerBalances.get(player);
+    }
+
+    public static int setPlayerBalance(Player player, int amount){
+        playerBalances.put(player, amount);
+        return getPlayerBalance(player);
+    }
+
+    public static int addPlayerBalance(Player player, int amount){
+        playerBalances.put(player, getPlayerBalance(player) + amount);
+        return getPlayerBalance(player);
+    }
+
+    public static int subtractPlayerBalance(Player player, int amount){
+        if(getPlayerBalance(player) >= amount){
+            playerBalances.put(player, getPlayerBalance(player) - amount);
+            return getPlayerBalance(player);
+        }
+        return -1;
+    }
 }
 

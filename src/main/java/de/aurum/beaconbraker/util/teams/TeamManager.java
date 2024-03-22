@@ -23,18 +23,23 @@ public class TeamManager {
     public static void setupTeams() {
         try {
             for(String key : defaultConfig.getConfigurationSection("game.teams").getKeys(false)){
+
                 String name = defaultConfig.getString("game.teams." + key + ".name");
                 ChatColor color = ChatColor.valueOf(defaultConfig.getString("game.teams." + key + ".color"));
-                Location spawnPoint = locationsConfig.getLocation("locations.teams." + key + ".spawnpoint");
+                Location spawnPoint = locationsConfig.getLocation("locations.teams." + key + ".spawn");
                 Location beaconLocation = locationsConfig.getLocation("locations.teams." + key + ".beacon");
                 Location shopLocation = locationsConfig.getLocation("locations.teams." + key + ".shop");
                 Location upgradesLocation = locationsConfig.getLocation("locations.teams." + key + ".upgrades");
-                teams.put(key ,new Team(name, color, spawnPoint, beaconLocation, shopLocation, upgradesLocation));
+                try {
+                    if(teams.containsKey(key)) throw new IllegalArgumentException("Cannot create two teams with the same name");
+                    teams.put(key ,new Team(name, color, spawnPoint, beaconLocation, shopLocation, upgradesLocation));
+                }catch (IllegalArgumentException e){
+                    Utils.sendErrorMessage("Failed loading Team '"+ key + "' configuration (teams may not be Set-up correctly; this massage can be ignored)", TeamManager.class.getName() + "\n" + e.toString());
+                }
             }
         }catch (NullPointerException e){
             Utils.sendErrorMessage("Failed loading Team configuration", TeamManager.class.getName() + "\n" + e.toString());
         }
-        Bukkit.broadcastMessage(teams.toString());
     }
 
     //<-----------Getters and Setters----------->

@@ -12,7 +12,7 @@ public class TeleportManager {
     private static final FileConfiguration locationsConfig = Data.getLocationsConfig();
 
     public static void teleportToLobbySpawn(Player player, boolean playSound){
-        Location lobbySpawn = locationsConfig.getLocation("locations.lobby.spawn");
+        Location lobbySpawn = Data.getLobbySpawnLocation();
         if(lobbySpawn != null){
             player.teleport(lobbySpawn);
             player.sendMessage(Data.getPrefix() + "Du wurdest zum §cLobby-Spawn §bTeleportiert");//TODO: Entfernen wenn fertig
@@ -31,7 +31,7 @@ public class TeleportManager {
             if(playSound)player.playSound(teamSpawn, Sound.ENTITY_PLAYER_LEVELUP, 1 , 2);
         }catch (NullPointerException e){
             player.sendMessage(Data.getPrefix() + "Du konntest nicht Teleportiert werden");
-            Utils.sendErrorMessage("Could not teleport player to teamSpawn", TeleportManager.class.getName());
+            Utils.sendErrorMessage("Could not teleport player §l" +player.getName()+ "§c to teamSpawn", TeleportManager.class.getName());
         }
     }
 

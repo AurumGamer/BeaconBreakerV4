@@ -12,4 +12,6 @@ commands:
   setchest:
     description: Set Spawn of Loot Chests
     usage: /setchest [ChestNumber]
-
+  bbreload:
+    description: Reload the plugin
+    usage: /bbreload

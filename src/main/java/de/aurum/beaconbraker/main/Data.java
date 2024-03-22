@@ -1,5 +1,7 @@
 package de.aurum.beaconbraker.main;
 
+import de.aurum.beaconbraker.util.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -8,27 +10,24 @@ import org.jetbrains.annotations.Nullable;
 public class Data {
     
     private static final BeaconBreaker plugin = BeaconBreaker.getPlugin();
-    private static Config config;
-    private static Config locationsConfig;
-    private static String prefix;
-    private static String noPerm;
-    private static String usage;
-    private static String joinMessage;
-    private static String wrongSender;
+    private static Config config, locationsConfig;
+    private static String prefix, noPerm, usage, joinMessage, wrongSender;
+    private static Location lobbySpawnLocation; ;
 
     public static void setupData() {
-        plugin.saveDefaultConfig();
-        config = new Config(plugin.getConfig());
-        prefix = formatString("chat.prefix");
-        joinMessage = formatString("chat.joinMessage");
-        noPerm = formatString("chat.noPerm");
-        wrongSender = formatString("chat.wrongSender");
-        usage = formatString("chat.usage");
         locationsConfig = new Config("locations.yml");
+        plugin.saveDefaultConfig();
+        config = new Config("config.yml");
+        prefix = formatConfigString("chat.prefix");
+        joinMessage = formatConfigString("chat.joinMessage");
+        noPerm = formatConfigString("chat.noPerm");
+        wrongSender = formatConfigString("chat.wrongSender");
+        usage = formatConfigString("chat.usage");
+        lobbySpawnLocation = getLocationsConfig().getLocation("locations.lobby.spawn");
     }
     
     
-    private static @Nullable String formatString(String path){
+    private static @Nullable String formatConfigString(String path){
         String s = Data.getDefaultConfig().getString(path);
         if (s != null) {
             if (s.contains("&")) {
@@ -51,7 +50,18 @@ public class Data {
         return location;
     }
 
-
+    public static void reloadResources(){
+        plugin.reloadConfig();
+        locationsConfig.reload();
+        config.reload();
+        prefix = formatConfigString("chat.prefix");
+        joinMessage = formatConfigString("chat.joinMessage");
+        noPerm = formatConfigString("chat.noPerm");
+        wrongSender = formatConfigString("chat.wrongSender");
+        usage = formatConfigString("chat.usage");
+        lobbySpawnLocation = getLocationsConfig().getLocation("locations.lobby.spawn");
+        Utils.sendOperatorMessage(Data.prefix + "Plugin Reloaded");
+    }
 
 //<-----------Getters and Setters----------->
     public static String getPrefix() {
@@ -78,6 +88,10 @@ public class Data {
 
     public static FileConfiguration getDefaultConfig(){
         return config.getConfiguration();
+    }
+
+    public static Location getLobbySpawnLocation() {
+        return lobbySpawnLocation;
     }
 
     public static void saveLocationsConfig(){

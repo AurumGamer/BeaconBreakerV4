@@ -1,6 +1,7 @@
 package de.aurum.beaconbraker.main;
 
 import de.aurum.beaconbraker.util.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -19,8 +20,14 @@ public class Config {
     public Config(String name) {
         this.name = name;
         this.file = new File(plugin.getDataFolder(), name);
+        Bukkit.getConsoleSender().sendMessage(name + " Config created at " + plugin.getDataFolder().getAbsolutePath());
         if (!this.file.exists()) {
-            this.file.getParentFile().mkdirs();
+            try {
+                this.file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                Utils.sendErrorMessage("Failed loading " + this.name + " configuration", this.getClass().getName() + "\n" + e.toString());
+            }
         }
 
         this.fileConfiguration = new YamlConfiguration();
@@ -33,9 +40,9 @@ public class Config {
         }
     }
 
-    public Config(FileConfiguration fileConfiguration){
+    public Config(String name, FileConfiguration fileConfiguration){
         this.fileConfiguration = fileConfiguration;
-        this.file = null;
+        this.file = new File(plugin.getDataFolder(), name);
         this.name = fileConfiguration.getName();
     }
 

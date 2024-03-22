@@ -1,5 +1,6 @@
 package de.aurum.beaconbraker.listener;
 
+import de.aurum.beaconbraker.util.shop.ShopManager;
 import de.aurum.beaconbraker.util.teams.Team;
 import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.entity.Entity;
@@ -24,6 +25,7 @@ public class EntityInteractListener implements Listener {
                 //if(metadata.contains(playerTeam.getName())){
                     if(metadata.contains("shop")){
                         player.sendMessage("Shop");
+                        ShopManager.openToPlayer(player);
                     }
                     if(metadata.contains("upgrades")){
                         player.sendMessage("Upgrade");
