@@ -62,6 +62,6 @@ public class SetTeamPositionsCommand implements CommandExecutor, TabCompleter {
             }
             return options;
         }
-        return null;
+        return new ArrayList<>();
     }
 }

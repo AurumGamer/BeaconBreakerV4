@@ -2,6 +2,7 @@ package de.aurum.beaconbraker.listener;
 
 import de.aurum.beaconbraker.main.Data;
 import de.aurum.beaconbraker.util.GameManager;
+import de.aurum.beaconbraker.util.PlayerManager;
 import de.aurum.beaconbraker.util.TeleportManager;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
@@ -31,6 +32,7 @@ public class PlayerJoinListener implements Listener {
                 e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
                 e.getPlayer().setAllowFlight(false);
                 TeleportManager.teleportToLobbySpawn(e.getPlayer(), true);
+                PlayerManager.addPlayerToBalanceList(e.getPlayer());
         }
 
         

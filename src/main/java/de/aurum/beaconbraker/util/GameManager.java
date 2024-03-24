@@ -1,19 +1,14 @@
 package de.aurum.beaconbraker.util;
 
+import de.aurum.beaconbraker.util.shop.ShopManager;
 import de.aurum.beaconbraker.util.teams.Team;
 import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-
-import java.util.HashMap;
-import java.util.Set;
 
 public class GameManager {
-
-    private static HashMap<Player, Integer> playerBalances = new HashMap<Player, Integer>();
 
     private static GameState gameState;
     private static final World world = Bukkit.getServer().getWorlds().get(0);
@@ -33,6 +28,7 @@ public class GameManager {
         TeamManager.setupTeams();
         placeTeamBeacons();
         EntityManager.spawnShops();
+        ShopManager.setupShop();
     }
 
     public void setGameState(GameState gameState) {
@@ -66,26 +62,5 @@ public class GameManager {
         return gameState;
     }
 
-    public static int getPlayerBalance(Player player){
-        return playerBalances.get(player);
-    }
-
-    public static int setPlayerBalance(Player player, int amount){
-        playerBalances.put(player, amount);
-        return getPlayerBalance(player);
-    }
-
-    public static int addPlayerBalance(Player player, int amount){
-        playerBalances.put(player, getPlayerBalance(player) + amount);
-        return getPlayerBalance(player);
-    }
-
-    public static int subtractPlayerBalance(Player player, int amount){
-        if(getPlayerBalance(player) >= amount){
-            playerBalances.put(player, getPlayerBalance(player) - amount);
-            return getPlayerBalance(player);
-        }
-        return -1;
-    }
 }
 

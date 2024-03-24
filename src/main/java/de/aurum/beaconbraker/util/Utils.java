@@ -45,6 +45,11 @@ public class Utils {
         player.sendMessage(message);
     }
 
+    public static void sendUsage(Player player, String usage){
+        String message = Data.getUsage().replaceAll("(?i)%Usage%", usage);
+        player.sendMessage(message);
+    }
+
     public static void sendOperatorMessage(String message){
         Bukkit.getConsoleSender().sendMessage(message);
         for(Player player : Bukkit.getOnlinePlayers()){

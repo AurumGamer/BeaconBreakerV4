@@ -21,7 +21,7 @@ public class SetChestCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
-            if (Utils.userHasPermission(cmd, sender, "setLobbySpawn")) {
+            if (Utils.userHasPermission(cmd, sender, "beaconbreaker.admin")) {
                 if (args.length == 1 && Utils.isNumeric(args[0])) {
                     locationsConfig.set("locations.chests." + args[0], player.getLocation());
                     Data.saveLocationsConfig();

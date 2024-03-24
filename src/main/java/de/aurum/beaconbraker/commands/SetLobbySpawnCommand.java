@@ -19,7 +19,7 @@ public class SetLobbySpawnCommand implements CommandExecutor {
 
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(Utils.userHasPermission(cmd, sender, "setLobbySpawn")){
+            if(Utils.userHasPermission(cmd, sender, "beaconbreaker.admin")){
                 if(args.length == 0){
                     Location location = Data.roundLocation(player.getLocation());
                     cfg.set("locations.lobby.spawn", location);

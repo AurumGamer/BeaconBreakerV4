@@ -20,11 +20,12 @@ public class Config {
     public Config(String name) {
         this.name = name;
         this.file = new File(plugin.getDataFolder(), name);
-        Bukkit.getConsoleSender().sendMessage(name + " Config created at " + plugin.getDataFolder().getAbsolutePath());
         if (!this.file.exists()) {
             try {
                 this.file.getParentFile().mkdirs();
-                file.createNewFile();
+                Bukkit.getConsoleSender().sendMessage(name + " Config created at " + plugin.getDataFolder().getAbsolutePath());
+                plugin.saveResource(name, false);
+                if(!this.file.exists()) file.createNewFile();
             } catch (IOException e) {
                 Utils.sendErrorMessage("Failed loading " + this.name + " configuration", this.getClass().getName() + "\n" + e.toString());
             }

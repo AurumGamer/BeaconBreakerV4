@@ -1,0 +1,19 @@
+shop:
+  weapons:
+    swords:
+    armor:
+    bows:
+  tools:
+    pickaxes:
+    axes:
+    shears:
+  potions:
+    strength:
+    haste:
+    jumpboost:
+    resistance:
+    thermal:
+  extras:
+    tnt:
+    enderPearl:
+    ladder:

@@ -1,16 +1,27 @@
 package de.aurum.beaconbraker.main;
 
+import de.aurum.beaconbraker.util.ItemBuilder;
 import de.aurum.beaconbraker.util.Utils;
+import de.aurum.beaconbraker.util.shop.ShopItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Data {
     
     private static final BeaconBreaker plugin = BeaconBreaker.getPlugin();
-    private static Config config, locationsConfig;
+    private static Config config, locationsConfig, itemConfig;
     private static String prefix, noPerm, usage, joinMessage, wrongSender;
     private static Location lobbySpawnLocation; ;
 
@@ -18,6 +29,7 @@ public class Data {
         locationsConfig = new Config("locations.yml");
         plugin.saveDefaultConfig();
         config = new Config("config.yml");
+        itemConfig = new Config("itemConfig.yml");
         prefix = formatConfigString("chat.prefix");
         joinMessage = formatConfigString("chat.joinMessage");
         noPerm = formatConfigString("chat.noPerm");
@@ -63,6 +75,25 @@ public class Data {
         Utils.sendOperatorMessage(Data.prefix + "Plugin Reloaded");
     }
 
+    public static ItemStack getItemFromConfig(String path){
+        FileConfiguration fileConfiguration = itemConfig.getConfiguration();
+        String displayName = fileConfiguration.getString(path + ".diplayname");
+        Material material = Material.getMaterial(fileConfiguration.getString(path + ".type"));
+        HashMap<Enchantment, Integer> enchantmentIntegerMap = new HashMap<Enchantment, Integer>();
+        if(fileConfiguration.get(path + ".enchantments") != null){
+            ArrayList<String> enchantments = (ArrayList<String>) fileConfiguration.getList(path + ".enchantments");  //Enchantment name
+            for(String enchanmentString : enchantments) {
+                String[] split = enchanmentString.split(":");
+                enchantmentIntegerMap.put(Enchantment.getByKey(NamespacedKey.minecraft(split[0])), Integer.parseInt(split[1]));
+            };
+        }
+        List<String> lore = (List<String>) fileConfiguration.getList(path + ".lore");
+        ItemStack item = new ItemBuilder(material).setName(displayName).setLore(lore).build();
+        item.addUnsafeEnchantments(enchantmentIntegerMap);
+        return item;
+    }
+
+
 //<-----------Getters and Setters----------->
     public static String getPrefix() {
         return prefix;
@@ -85,6 +116,9 @@ public class Data {
     public static FileConfiguration getLocationsConfig() {
         return locationsConfig.getConfiguration();
     }
+    public static FileConfiguration getItemConfig() {
+        return itemConfig.getConfiguration();
+    }
 
     public static FileConfiguration getDefaultConfig(){
         return config.getConfiguration();
@@ -96,6 +130,9 @@ public class Data {
 
     public static void saveLocationsConfig(){
         locationsConfig.save();
+    }
+    public static void saveItemConfig(){
+        itemConfig.save();
     }
 
     public static void saveConfig(){

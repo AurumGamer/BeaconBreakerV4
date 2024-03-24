@@ -14,7 +14,7 @@ public class ReloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if(Utils.userHasPermission(cmd, sender, "pluginReload")){
+        if(Utils.userHasPermission(cmd, sender, "beaconbreaker.admin")){
             if(args.length == 0){
                 Data.reloadResources();
             }else sender.sendMessage("§cUsage: " + cmd.getUsage());

@@ -15,3 +15,6 @@ commands:
   bbreload:
     description: Reload the plugin
     usage: /bbreload
+  itemConfig:
+    description: Configure the shop items
+    usage: /itemConfig [add] [type] [path + '.' + {name}] [price]
