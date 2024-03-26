@@ -40,7 +40,7 @@ public class EntityManager {
         Villager shopVillager = null;
         if (!location.getWorld().getEntitiesByClass(Villager.class).isEmpty()){
             for (Villager villager : location.getWorld().getEntitiesByClass(Villager.class)){
-                if((!villager.getMetadata("id").isEmpty()) &&villager.getMetadata("id").get(0).asString().equals(teamKey+type)){
+                if((!villager.getMetadata("id").isEmpty()) && villager.getMetadata("id").get(0).asString().equals(teamKey+type)){
                     shopVillager = villager;
                 }
             }

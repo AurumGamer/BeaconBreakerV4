@@ -27,7 +27,7 @@ public class ShopManager {
     private static SimpleItem defaultGlass = new SimpleItem(new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName(""));
     private static Gui tabGui1 = Gui.empty(9, 4);
     private static Gui tabGui3 = Gui.empty(9, 4);
-    private static Gui tabGui2 = Gui.empty(9, 4);
+    private static Gui tabGui2 = Gui.empty(9, 3);
     private static Gui tabGui4 = Gui.empty(9, 4);
     private static ArrayList<Gui> tabGuis = new ArrayList<>(Arrays.asList(tabGui1, tabGui2, tabGui3, tabGui4));
     private static ShopItem testItem = itemStackToShopItem(testItemStack, 12);
@@ -47,28 +47,34 @@ public class ShopManager {
             .addIngredient('3', new ShopTabItem(3, new ItemBuilder(Material.TNT).setDisplayName("Extras")))
             .setTabs(tabGuis)
             .build();
+
     public static void setupShop() {
-        if(itemConfig.getConfigurationSection("shop") != null) {
-            HashSet<String> guiTypes = (HashSet<String>) itemConfig.getConfigurationSection("shop").getKeys(false);
-            Iterator<String> guiTypesIterator = guiTypes.iterator();
-                for(Gui currentGui : tabGuis){
-                    if(!guiTypesIterator.hasNext()) break;
-                    String guiType = guiTypesIterator.next();
-                    Bukkit.getConsoleSender().sendMessage("shop." + guiType);
-                    for(String itemType : itemConfig.getConfigurationSection("shop." + guiType).getKeys(false)){
-                        HashSet<String> configItems = (HashSet<String>) itemConfig.getConfigurationSection("shop." + guiType + "." + itemType).getKeys(false);
-                        Iterator<String> configItemsIterator = configItems.iterator();
-                        if(configItemsIterator.hasNext()) {
-                            int i = 0;
-                            String currentItem;
-                            while(configItemsIterator.hasNext() && i < 4) {
-                                currentItem = configItemsIterator.next();
-                                currentGui.addItems(itemStackToShopItem(Data.getItemFromConfig("shop." + guiType + "." + itemType + "." + currentItem), itemConfig.getInt("shop." + guiType + "." + itemType + "." + currentItem + ".price")));
-                                i++;
-                            }
-                        }
+
+        List<String> shops = new ArrayList<String>();
+        if(itemConfig.getConfigurationSection("shop") != null) shops.add("shop");
+        if(itemConfig.getConfigurationSection("upgrades") != null) shops.add("upgrades");
+
+        for(String shop : shops){
+
+            List<String> tabs = new ArrayList<>(itemConfig.getConfigurationSection(shop).getKeys(false));
+            String tab;
+            if(tabs.size() > 4)Utils.sendOperatorMessage("§cRegistered more than 4 tabs for §6" + shop);
+            for (int i = 0; (i < 4) && i < tabs.size(); i++){
+                tab = tabs.get(i);
+                List<String> itemTypes = new ArrayList<>(itemConfig.getConfigurationSection(shop + "." + tab).getKeys(false));
+                String itemType;
+                if(itemTypes.size() > 4)Utils.sendOperatorMessage("§cRegistered more than 9 Item-rows for tab §6" + tab + " §cin §6" + shop);
+                for (int j = 0; (j < 9) && j < itemTypes.size(); j++){
+                    itemType = itemTypes.get(j);
+                    List<String> configItems = new ArrayList<>(itemConfig.getConfigurationSection(shop + "." + tab + "." + itemType).getKeys(false));
+                    String configItem;
+                    if(configItems.size() > 4)Utils.sendOperatorMessage("§cRegistered more than 4 items for §6" + itemType + " §cof tab §6" + tab + " §cin §6" + shop);
+                    for (int g = 0; (g < 4) && g < configItems.size(); g++){
+                        configItem = configItems.get(g);
+                        tabGuis.get(i).setItem(j*4+g,itemStackToShopItem(Data.getItemFromConfig(shop + "." + tab + "." + itemType + "." + configItem), itemConfig.getInt(shop + "." + tab + "." + itemType + "." + configItem + ".price")));
                     }
                 }
+            }
         }
     }
 
@@ -82,16 +88,15 @@ public class ShopManager {
     }
 
     private static ShopItem itemStackToShopItem(ItemStack itemStack, int price){
+
         ItemMeta itemMeta = itemStack.getItemMeta();
         Material material = itemStack.getType();
-        StringBuilder nameBuilder = new StringBuilder(itemMeta.getDisplayName());
+        String name = "§b" + ((itemMeta != null ) ? itemMeta.getDisplayName() : itemStack.getType().toString());
         List<String> lore = new ArrayList<>();
-        itemMeta.getLore().forEach(string -> lore.add("§5"+string));
         Map<Enchantment, Integer> enchantments = itemStack.getEnchantments();
-        if(!enchantments.isEmpty()) nameBuilder.insert(0, "§b");
-        HashMap<Enchantment, Pair<Integer, Boolean>> builderEnchantments = new HashMap<Enchantment, Pair<Integer, Boolean>>();
-        ItemBuilder displayItemBuilder = new ItemBuilder(material).setDisplayName(nameBuilder.toString()).setLegacyLore(lore).addLoreLines(String.valueOf(price));
-        ItemBuilder buyItemBuilder = new ItemBuilder(material).setDisplayName(nameBuilder.toString()).setLegacyLore(lore);
+        if(itemMeta != null && itemMeta.getLore() != null) itemMeta.getLore().forEach(string -> lore.add("§5"+string));
+        ItemBuilder displayItemBuilder = new ItemBuilder(material).setDisplayName(name).setLegacyLore(lore).addLoreLines(String.valueOf(price));
+        ItemBuilder buyItemBuilder = new ItemBuilder(material).setDisplayName(name).setLegacyLore(lore);
         if(!enchantments.isEmpty()){
             for(Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()){
                 displayItemBuilder.addEnchantment(entry.getKey(), entry.getValue(), true);

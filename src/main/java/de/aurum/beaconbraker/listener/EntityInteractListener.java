@@ -48,13 +48,12 @@ public class EntityInteractListener implements Listener {
                 //if(metadata.contains(playerTeam.getName())){
                     if(metadata.contains("shop")){
                         player.sendMessage("Shop");
-                    }
-                    if(metadata.contains("upgrades")){
+                    }else if(metadata.contains("upgrades")){
                         player.sendMessage("Upgrade");
-                    }
+                    }else player.sendMessage("id corrupted");
                 //}
 
-            }
+            }else  player.sendMessage("No id");
             event.setCancelled(true);
         }
 

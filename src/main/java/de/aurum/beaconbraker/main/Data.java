@@ -78,14 +78,22 @@ public class Data {
     public static ItemStack getItemFromConfig(String path){
         FileConfiguration fileConfiguration = itemConfig.getConfiguration();
         String displayName = fileConfiguration.getString(path + ".diplayname");
-        Material material = Material.getMaterial(fileConfiguration.getString(path + ".type"));
+        String type = fileConfiguration.getString(path + ".type");
+        Material material = Material.getMaterial(type);
+        if(material == null){
+            String cause = type == null ? "type of item (material) is not specified in config" : path + ".type cannot be converted into item Material";
+            Utils.sendErrorMessage("Failed loading Material of item from itemConfig", cause );
+        }
         HashMap<Enchantment, Integer> enchantmentIntegerMap = new HashMap<Enchantment, Integer>();
         if(fileConfiguration.get(path + ".enchantments") != null){
-            ArrayList<String> enchantments = (ArrayList<String>) fileConfiguration.getList(path + ".enchantments");  //Enchantment name
-            for(String enchanmentString : enchantments) {
-                String[] split = enchanmentString.split(":");
-                enchantmentIntegerMap.put(Enchantment.getByKey(NamespacedKey.minecraft(split[0])), Integer.parseInt(split[1]));
-            };
+            ArrayList<String> enchantments = (ArrayList<String>) fileConfiguration.getList(path + ".enchantments");
+            if(enchantments != null){
+                for(String enchanmentString : enchantments) {
+                    String[] split = enchanmentString.split(":");
+                    enchantmentIntegerMap.put(Enchantment.getByKey(NamespacedKey.minecraft(split[0])), Integer.parseInt(split[1]));
+                }
+            }
+
         }
         List<String> lore = (List<String>) fileConfiguration.getList(path + ".lore");
         ItemStack item = new ItemBuilder(material).setName(displayName).setLore(lore).build();
