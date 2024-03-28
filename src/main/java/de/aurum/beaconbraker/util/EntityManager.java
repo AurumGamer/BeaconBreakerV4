@@ -1,7 +1,7 @@
 package de.aurum.beaconbraker.util;
 
 import de.aurum.beaconbraker.main.BeaconBreaker;
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.teams.Team;
 import de.aurum.beaconbraker.util.teams.TeamManager;
 import org.bukkit.Location;
@@ -18,7 +18,7 @@ public class EntityManager {
 
     private static Map<String, Villager> villagers = new HashMap<String,Villager>();
 
-    private static final FileConfiguration locationsConfig = Data.getLocationsConfig();
+    private static final FileConfiguration locationsConfig = DataManager.getLocationsConfig();
 
     public static void spawnBoss(){
         //TODO Add boss spawn command

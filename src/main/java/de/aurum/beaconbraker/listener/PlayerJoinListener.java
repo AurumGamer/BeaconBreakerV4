@@ -1,6 +1,6 @@
 package de.aurum.beaconbraker.listener;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.GameManager;
 import de.aurum.beaconbraker.util.PlayerManager;
 import de.aurum.beaconbraker.util.TeleportManager;
@@ -18,7 +18,7 @@ public class PlayerJoinListener implements Listener {
 
         Player p = e.getPlayer();
 
-        String JoinMessage = Data.getJoinMessage().replace("%Player%", p.getName());
+        String JoinMessage = DataManager.getJoinMessage().replace("%Player%", p.getName());
         e.setJoinMessage(JoinMessage);
         e.getPlayer().setGameMode(GameMode.ADVENTURE);
         switch (GameManager.getGameState()) {

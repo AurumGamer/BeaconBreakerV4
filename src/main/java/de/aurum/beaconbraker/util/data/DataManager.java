@@ -1,9 +1,8 @@
-package de.aurum.beaconbraker.main;
+package de.aurum.beaconbraker.util.data;
 
+import de.aurum.beaconbraker.main.BeaconBreaker;
 import de.aurum.beaconbraker.util.ItemBuilder;
 import de.aurum.beaconbraker.util.Utils;
-import de.aurum.beaconbraker.util.shop.ShopItem;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,16 +13,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Data {
+public class DataManager {
     
-    private static final BeaconBreaker plugin = BeaconBreaker.getPlugin();
+    private BeaconBreaker plugin;
     private static Config config, locationsConfig, itemConfig;
     private static String prefix, noPerm, usage, joinMessage, wrongSender;
-    private static Location lobbySpawnLocation; ;
+    private static Location lobbySpawnLocation;
+    public DataManager(BeaconBreaker plugin) {
+        this.plugin = plugin;
+    }
 
     public static void setupData() {
         locationsConfig = new Config("locations.yml");
@@ -40,7 +41,7 @@ public class Data {
     
     
     private static @Nullable String formatConfigString(String path){
-        String s = Data.getDefaultConfig().getString(path);
+        String s = DataManager.getDefaultConfig().getString(path);
         if (s != null) {
             if (s.contains("&")) {
                 s = s.replace("&", "§");
@@ -72,7 +73,7 @@ public class Data {
         wrongSender = formatConfigString("chat.wrongSender");
         usage = formatConfigString("chat.usage");
         lobbySpawnLocation = getLocationsConfig().getLocation("locations.lobby.spawn");
-        Utils.sendOperatorMessage(Data.prefix + "Plugin Reloaded");
+        Utils.sendOperatorMessage(DataManager.prefix + "Plugin Reloaded");
     }
 
     public static ItemStack getItemFromConfig(String path){

@@ -1,10 +1,8 @@
 package de.aurum.beaconbraker.commands;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.Utils;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +19,7 @@ import java.util.*;
 
 public class ItemConfigCommand implements CommandExecutor, TabCompleter {
 
-    private static FileConfiguration itemConfig = Data.getItemConfig();
+    private static FileConfiguration itemConfig = DataManager.getItemConfig();
     private static final List<String> validOptions = Arrays.asList("add", "remove");
     private static final List<String> validTypes = Collections.singletonList("item");
 
@@ -48,21 +46,21 @@ public class ItemConfigCommand implements CommandExecutor, TabCompleter {
                                 }
                                 itemConfig.set(args[2].toLowerCase() + ".lore", itemMeta.getLore());
                                 itemConfig.set(args[2].toLowerCase() + ".price", Integer.valueOf(args[3]));
-                                Data.saveItemConfig();
-                            }else player.sendMessage(Data.getPrefix() + "§cdas item in deiner Hand kann nicht hinzugefügt werden");
+                                DataManager.saveItemConfig();
+                            }else player.sendMessage(DataManager.getPrefix() + "§cdas item in deiner Hand kann nicht hinzugefügt werden");
                         }else Utils.sendUsage(player, cmd);
                     }else Utils.sendUsage(player, cmd);
                 } else if (args[0].equalsIgnoreCase("remove")) {
                     if (args.length == 2){
                         if(itemConfig.getConfigurationSection(args[1].toLowerCase()) != null){
                             itemConfig.set(args[1].toLowerCase(), null);
-                            Data.saveItemConfig();
-                            player.sendMessage(Data.getPrefix() + "§6"+ args[1].toLowerCase() + " §bwurde aus der config entfernt");
-                        }else player.sendMessage(Data.getPrefix() + "§6"+ args[1].toLowerCase() + " §cexistiert nicht");
+                            DataManager.saveItemConfig();
+                            player.sendMessage(DataManager.getPrefix() + "§6"+ args[1].toLowerCase() + " §bwurde aus der config entfernt");
+                        }else player.sendMessage(DataManager.getPrefix() + "§6"+ args[1].toLowerCase() + " §cexistiert nicht");
                     }else Utils.sendUsage(player, "/itemconfig remove [path] " + args.length);
                 }else Utils.sendUsage(player, "/itemconfig remove [path] ");
-            }else player.sendMessage(Data.getNoPerm());
-        }else sender.sendMessage(Data.getWrongSender());
+            }else player.sendMessage(DataManager.getNoPerm());
+        }else sender.sendMessage(DataManager.getWrongSender());
 
         return true;
     }

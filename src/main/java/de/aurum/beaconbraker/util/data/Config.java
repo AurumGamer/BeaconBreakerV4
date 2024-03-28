@@ -1,11 +1,13 @@
-package de.aurum.beaconbraker.main;
+package de.aurum.beaconbraker.util.data;
 
+import de.aurum.beaconbraker.main.BeaconBreaker;
 import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,7 @@ public class Config {
     private final String name;
     private final FileConfiguration fileConfiguration;
 
-    public Config(String name) {
+    public Config(String name, JavaPlugin main) {
         this.name = name;
         this.file = new File(plugin.getDataFolder(), name);
         if (!this.file.exists()) {

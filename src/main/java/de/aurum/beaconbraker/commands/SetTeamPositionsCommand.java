@@ -1,10 +1,7 @@
 package de.aurum.beaconbraker.commands;
 
-import de.aurum.beaconbraker.main.Data;
-import de.aurum.beaconbraker.util.teams.Team;
-import de.aurum.beaconbraker.util.teams.TeamManager;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.Utils;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,8 +14,8 @@ import java.util.*;
 
 public class SetTeamPositionsCommand implements CommandExecutor, TabCompleter {
 
-    private static FileConfiguration locationsConfig = Data.getLocationsConfig();
-    private static FileConfiguration defaultConfig = Data.getDefaultConfig();
+    private static FileConfiguration locationsConfig = DataManager.getLocationsConfig();
+    private static FileConfiguration defaultConfig = DataManager.getDefaultConfig();
     private static final Set<String> validCommands = new HashSet<>(Arrays.asList("spawn", "shop", "upgrades", "beacon"));
     private static final Set<String> validTeams = new HashSet<>();
 
@@ -38,14 +35,14 @@ public class SetTeamPositionsCommand implements CommandExecutor, TabCompleter {
                 if (args.length == 2) {
                     String position = args[1].toLowerCase();
                     if(validTeams.contains(args[0]) && (validCommands.contains(position.toLowerCase()))){
-                        Location playerLocation = Data.roundLocation(player.getLocation());
+                        Location playerLocation = DataManager.roundLocation(player.getLocation());
                         locationsConfig.set("locations.teams." + args[0].toLowerCase() + "." + position.toLowerCase(), playerLocation);
-                        Data.saveLocationsConfig();
-                        player.sendMessage(Data.getPrefix() + position + " von Team " + args[0] + " wurde platziert");
+                        DataManager.saveLocationsConfig();
+                        player.sendMessage(DataManager.getPrefix() + position + " von Team " + args[0] + " wurde platziert");
                     }else Utils.sendUsage(player, cmd);
                 }else Utils.sendUsage(player, cmd);
-            }else player.sendMessage(Data.getNoPerm());
-        }else sender.sendMessage(Data.getWrongSender());
+            }else player.sendMessage(DataManager.getNoPerm());
+        }else sender.sendMessage(DataManager.getWrongSender());
 
         return true;
     }

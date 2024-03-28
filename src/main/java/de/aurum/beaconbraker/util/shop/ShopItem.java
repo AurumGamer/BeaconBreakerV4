@@ -1,6 +1,6 @@
 package de.aurum.beaconbraker.util.shop;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -30,9 +30,9 @@ public class ShopItem extends AbstractItem {
             HashMap<Integer, ItemStack> map = player.getInventory().addItem(boughtItem.get());
             if(map.isEmpty()){
                 PlayerManager.subtractPlayerBalance(player, price);
-                player.sendMessage(Data.getPrefix() + "Gekauft; geld übrig: " + PlayerManager.getPlayerBalance(player));
-            }else {player.sendMessage(Data.getPrefix() + "Du hast kein Platz im inventar " + Arrays.asList(map));}
-        }else player.sendMessage(Data.getPrefix() + "Du hast nicht genügend Geld");
+                player.sendMessage(DataManager.getPrefix() + "Gekauft; geld übrig: " + PlayerManager.getPlayerBalance(player));
+            }else {player.sendMessage(DataManager.getPrefix() + "Du hast kein Platz im inventar " + Arrays.asList(map));}
+        }else player.sendMessage(DataManager.getPrefix() + "Du hast nicht genügend Geld");
     }
 
     @Override

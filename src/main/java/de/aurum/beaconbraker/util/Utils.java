@@ -1,18 +1,14 @@
 package de.aurum.beaconbraker.util;
 
-import de.aurum.beaconbraker.main.Data;
-import net.md_5.bungee.api.chat.ComponentBuilder;
+import de.aurum.beaconbraker.util.data.DataManager;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Content;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.awt.*;
 
 public class Utils {
 
@@ -29,7 +25,7 @@ public class Utils {
 
     public static void sendErrorMessage(String error, String cause){
         if(cause == null) cause = "No cause specified";
-        String prefix = (Data.getPrefix() != null) ? Data.getPrefix() : "";
+        String prefix = (DataManager.getPrefix() != null) ? DataManager.getPrefix() : "";
         TextComponent errorText = new TextComponent(prefix + ChatColor.RED + "Error: "+ error);
         Text causeText = new Text(ChatColor.RED + "Cause: " + cause);
         errorText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, causeText));
@@ -41,12 +37,12 @@ public class Utils {
     }
 
     public static void sendUsage(Player player, Command cmd){
-        String message = Data.getUsage().replaceAll("(?i)%Usage%", cmd.getUsage());
+        String message = DataManager.getUsage().replaceAll("(?i)%Usage%", cmd.getUsage());
         player.sendMessage(message);
     }
 
     public static void sendUsage(Player player, String usage){
-        String message = Data.getUsage().replaceAll("(?i)%Usage%", usage);
+        String message = DataManager.getUsage().replaceAll("(?i)%Usage%", usage);
         player.sendMessage(message);
     }
 

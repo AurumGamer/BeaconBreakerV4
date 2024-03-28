@@ -1,22 +1,18 @@
 package de.aurum.beaconbraker.util;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Rotatable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class ChestManager {
 
-    private static FileConfiguration cfg = Data.getLocationsConfig();
+    private static FileConfiguration cfg = DataManager.getLocationsConfig();
 
     private static final Material[] materials = {Material.GOLD_INGOT, Material.DIAMOND, Material.NETHERITE_SCRAP, Material.BLAZE_ROD};
 

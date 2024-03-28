@@ -1,13 +1,10 @@
 package de.aurum.beaconbraker.commands;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.Utils;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class ReloadCommand implements CommandExecutor {
 
@@ -16,9 +13,9 @@ public class ReloadCommand implements CommandExecutor {
 
         if(Utils.userHasPermission(cmd, sender, "beaconbreaker.admin")){
             if(args.length == 0){
-                Data.reloadResources();
+                DataManager.reloadResources();
             }else sender.sendMessage("§cUsage: " + cmd.getUsage());
-        }else sender.sendMessage(Data.getNoPerm());
+        }else sender.sendMessage(DataManager.getNoPerm());
 
         return true;
     }

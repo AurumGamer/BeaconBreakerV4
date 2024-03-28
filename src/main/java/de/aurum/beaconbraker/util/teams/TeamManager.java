@@ -1,8 +1,7 @@
 package de.aurum.beaconbraker.util.teams;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,8 +15,8 @@ import java.util.Set;
 
 public class TeamManager {
 
-    private static final FileConfiguration defaultConfig = Data.getDefaultConfig();
-    private static final FileConfiguration locationsConfig = Data.getLocationsConfig();
+    private static final FileConfiguration defaultConfig = DataManager.getDefaultConfig();
+    private static final FileConfiguration locationsConfig = DataManager.getLocationsConfig();
     private static final Map<String, Team> teams = new HashMap<>();
 
     public static void setupTeams() {

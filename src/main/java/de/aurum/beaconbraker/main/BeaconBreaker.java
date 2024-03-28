@@ -5,25 +5,24 @@ import de.aurum.beaconbraker.listener.EntityInteractListener;
 import de.aurum.beaconbraker.listener.FoodLevelChangeListener;
 import de.aurum.beaconbraker.listener.PlayerJoinListener;
 import de.aurum.beaconbraker.util.GameManager;
+import de.aurum.beaconbraker.util.data.DataManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.awt.*;
 
 public final class BeaconBreaker extends JavaPlugin {
 
     private static BeaconBreaker plugin;
+    private GameManager gameManager = new GameManager(plugin);
+    private DataManager dataManager = new DataManager(plugin);
     public static boolean debugMode = true;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
-        Data.setupData();
+        DataManager.setupData();
         GameManager.setUp();
         startupMessage();
         registerCommands();

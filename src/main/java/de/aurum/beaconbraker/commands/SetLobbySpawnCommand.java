@@ -1,6 +1,6 @@
 package de.aurum.beaconbraker.commands;
 
-import de.aurum.beaconbraker.main.Data;
+import de.aurum.beaconbraker.util.data.DataManager;
 import de.aurum.beaconbraker.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class SetLobbySpawnCommand implements CommandExecutor {
 
-    private static final FileConfiguration cfg = Data.getLocationsConfig();
+    private static final FileConfiguration cfg = DataManager.getLocationsConfig();
 
 
     @Override
@@ -21,13 +21,13 @@ public class SetLobbySpawnCommand implements CommandExecutor {
             Player player = (Player) sender;
             if(Utils.userHasPermission(cmd, sender, "beaconbreaker.admin")){
                 if(args.length == 0){
-                    Location location = Data.roundLocation(player.getLocation());
+                    Location location = DataManager.roundLocation(player.getLocation());
                     cfg.set("locations.lobby.spawn", location);
-                    Data.saveLocationsConfig();
-                    player.sendMessage(Data.getPrefix() + "§cDer Spawn wurde erfolgreich gesetzt!");
+                    DataManager.saveLocationsConfig();
+                    player.sendMessage(DataManager.getPrefix() + "§cDer Spawn wurde erfolgreich gesetzt!");
                 }else Utils.sendUsage(player, cmd);
-            }else player.sendMessage(Data.getNoPerm());
-        }else sender.sendMessage(Data.getWrongSender());
+            }else player.sendMessage(DataManager.getNoPerm());
+        }else sender.sendMessage(DataManager.getWrongSender());
         return true;
     }
 

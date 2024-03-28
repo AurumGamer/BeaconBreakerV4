@@ -25,10 +25,11 @@ public class EntityInteractListener implements Listener {
                 //if(metadata.contains(playerTeam.getName())){
                     if(metadata.contains("shop")){
                         player.sendMessage("Shop");
-                        ShopManager.openToPlayer(player);
+                        ShopManager.openShopGui(player);
                     }
                     if(metadata.contains("upgrades")){
                         player.sendMessage("Upgrade");
+                        ShopManager.openUpgradesGui(player);
                     }
                 //}
             }
