@@ -1,0 +1,113 @@
+shop:
+  weapons:
+    swords:
+      wood:
+        diplayname: Holz Knüppel
+        type: WOODEN_SWORD
+        enchantments:
+        - knockback:2
+        lore:
+        - ''
+        - Nicht wirklicht Effektiv,
+        - ein guter Treffer kann einen
+        - Schädelbasisbruch verursachen
+        - ''
+        price: 14
+      stone:
+        diplayname: Billig Schwert
+        type: STONE_SWORD
+        enchantments:
+        - sharpness:1
+        lore:
+        - ''
+        - Die Art von Schwert
+        - das man für 25€ auf
+        - Amazon kauft und auf
+        - AliExpress 2.99 Kostet
+        - ''
+        price: 25
+      diamond:
+        diplayname: Fabrikneues Schwert
+        type: DIAMOND_SWORD
+        enchantments:
+        - sharpness:1
+        lore:
+        - ''
+        - Ein gutes schwert,
+        - hat seinen Preiß
+        - ''
+        price: 40
+      gold:
+        diplayname: Glänzendes Schwert
+        type: GOLDEN_SWORD
+        enchantments:
+        - fire_aspect:1
+        - sharpness:10
+        lore:
+        - ''
+        - Dieses schwert legt Kraft
+        - über Außdauer, sehr Tötlich
+        - ''
+        price: 75
+  tools:
+    pickaxes:
+      wood:
+        diplayname: 2 Stock
+        type: WOODEN_PICKAXE
+        lore:
+        - ''
+        - 2 Stock, zusammen
+        - geklebt mit UHU
+        - ''
+        price: 10
+      stone:
+        diplayname: Özis hacke
+        type: STONE_PICKAXE
+        lore:
+        - ''
+        - Geklaut ausm Museum
+        - in Bozen.
+        - ''
+        price: 20
+      iron:
+        diplayname: §bBOSH Bohrer
+        type: IRON_PICKAXE
+        lore:
+        - ''
+        - Leistungsstarker 1.050-Watt-Motor
+        - und Regelelektronik für exakte
+        - Bohrergebnisse.
+        - ''
+        - 'Gewicht: 5 kg'
+        - 'Drehzahl, 1. Gang: 600 min'
+        - 'Drehzahl, 2. Gang: 1.450 min'
+        - ''
+        price: 35
+    axes:
+      wood:
+        diplayname: §bButterstock
+        type: WOODEN_AXE
+        lore:
+        - ''
+        - Ka isch holt aus
+        - Butter.
+        - ''
+        price: 12
+      stone:
+        diplayname: §bARK Axe
+        type: STONE_AXE
+        lore:
+        - ''
+        - 'Effeckt:'
+        - Du kanst Dinosaurier
+        - zähmen
+        - ''
+        price: 23
+      iron:
+        diplayname: Feuerwehr Axt
+        type: IRON_AXE
+        lore:
+        - ''
+        - '"Ausgeliehen"'
+        - ''
+        price: 37

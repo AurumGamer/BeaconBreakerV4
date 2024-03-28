@@ -1,0 +1,174 @@
+locations:
+  lobby:
+    spawn:
+      ==: org.bukkit.Location
+      world: world
+      x: 20.5
+      y: 16.0
+      z: 7.5
+      pitch: 0.0
+      yaw: 0.0
+  teams:
+    blue:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 20.5
+        y: 16.0
+        z: -74.5
+        pitch: 0.0
+        yaw: 0.0
+      upgrades:
+        ==: org.bukkit.Location
+        world: world
+        x: 26.5
+        y: 16.0
+        z: -59.5
+        pitch: 0.0
+        yaw: 180.0
+      shop:
+        ==: org.bukkit.Location
+        world: world
+        x: 14.5
+        y: 16.0
+        z: -59.5
+        pitch: 0.0
+        yaw: -180.0
+      beacon:
+        ==: org.bukkit.Location
+        world: world
+        x: 20.5
+        y: 16.0
+        z: -76.5
+        pitch: 0.0
+        yaw: 0.0
+    red:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 20.5
+        y: 16.0
+        z: 86.5
+        pitch: 0.0
+        yaw: -180.0
+      shop:
+        ==: org.bukkit.Location
+        world: world
+        x: 26.5
+        y: 16.0
+        z: 72.5
+        pitch: 0.0
+        yaw: 0.0
+      upgrades:
+        ==: org.bukkit.Location
+        world: world
+        x: 14.5
+        y: 16.0
+        z: 72.5
+        pitch: 0.0
+        yaw: 0.0
+      beacon:
+        ==: org.bukkit.Location
+        world: world
+        x: 20.5
+        y: 16.0
+        z: 89.5
+        pitch: 0.0
+        yaw: -180.0
+  chests:
+    '1':
+      ==: org.bukkit.Location
+      world: world
+      x: 55.49477774867644
+      y: 16.0
+      z: 1.633997462684257
+      pitch: 90.0
+      yaw: 178.53258
+    '2':
+      ==: org.bukkit.Location
+      world: world
+      x: 55.456020073831354
+      y: 16.0
+      z: 11.497214190756138
+      pitch: 89.24999
+      yaw: -178.91753
+    '3':
+      ==: org.bukkit.Location
+      world: world
+      x: 55.497951094990164
+      y: 16.0
+      z: 41.61657130633291
+      pitch: 90.0
+      yaw: -6.7169366
+    '4':
+      ==: org.bukkit.Location
+      world: world
+      x: 62.4828372204072
+      y: 16.0
+      z: 84.69999998807907
+      pitch: 90.0
+      yaw: 166.98466
+    '5':
+      ==: org.bukkit.Location
+      world: world
+      x: -21.69999998807907
+      y: 16.0
+      z: 84.69999998807907
+      pitch: 51.45009
+      yaw: 146.43549
+    '6':
+      ==: org.bukkit.Location
+      world: world
+      x: -15.516420525704428
+      y: 16.0
+      z: 42.51760557226737
+      pitch: 88.64999
+      yaw: -179.6638
+    '7':
+      ==: org.bukkit.Location
+      world: world
+      x: -14.685474984992547
+      y: 16.0
+      z: 10.540184081606476
+      pitch: 40.049767
+      yaw: 140.73837
+    '8':
+      ==: org.bukkit.Location
+      world: world
+      x: -14.693774114393536
+      y: 16.0
+      z: 2.4536186239255975
+      pitch: 66.00003
+      yaw: 98.589066
+    '9':
+      ==: org.bukkit.Location
+      world: world
+      x: -14.45478435609195
+      y: 16.0
+      z: -28.53643858742061
+      pitch: 88.65024
+      yaw: -95.51236
+    '10':
+      ==: org.bukkit.Location
+      world: world
+      x: -21.69999998807907
+      y: 16.0
+      z: -71.69999998807907
+      pitch: 60.450455
+      yaw: -167.5132
+    '11':
+      ==: org.bukkit.Location
+      world: world
+      x: 62.69999998807907
+      y: 16.0
+      z: -71.69999998807907
+      pitch: 59.850674
+      yaw: 11.881775
+    '12':
+      ==: org.bukkit.Location
+      world: world
+      x: 56.08755363198024
+      y: 16.0
+      z: -29.422496270546993
+      pitch: 81.90108
+      yaw: 108.62863
